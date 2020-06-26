@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --color-main: #111111;
+    --color-alternative: #000000;
+    --color-gray: #777777;
+    --color-footer: #EEEEEE;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-main);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 36px auto 0;
+    width: 940px;
+}
+
+header a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: var(--color-alternative);
+}
+
+.logo {
+    width: 96px;
+    margin-right: 122.4px;
+}
+
+.main {
+    display: flex;
+    width: 940px;
+    height: 366px;
+    margin: 30px auto 0;
+    background-color: #FBDFDB;
+    border-radius: 30px;
+}
+
+.description {
+    margin-top: 98.6px;
+    text-align: left;
+}
+
+.main img {
+    width: 216px;
+    height: 300px;
+    margin-right: 100px;
+    margin-left: 248px;
+    margin-top: 66px;
+}
+
+.description h2 {
+    margin-left: 60px;
+    font-size: 32px;
+}
+
+.description p {
+    margin-left: 60px;
+    height: 84px;
+    width: 316px;
+    line-height: 28px;
+    font-size: 18px;
+    color: var(--color-alternative);
+    opacity: 0.7;
+}
+
+section {
+    width: 940px;
+    margin: 50px auto 0;
+}
+
+section h2 {
+    text-align: left;
+    margin-top: 50px;
+}
+
+.recipe-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.recipe img {
+    height: 140px;
+    width: 300px;
+    border-radius: 15px;
+}
+
+.recipe h3 {
+    font-weight: normal;
+    font-size: 18px;
+    margin: 20px 0 0;
+    color: var(--color-main);
+}
+
+.recipe p {
+    text-align: left;
+    color: var(--color-gray);
+    margin: 5px 0 10px;
+}
+
+.footer-box {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: flex-start;
+    margin: 50px auto 0;
+    background-color: var(--color-footer);
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    padding: 23px;
+    color: #999999;
+}
+
+/*=== ABOUT ===*/
+
+.about {
+    margin: 50 auto
+}
+
+.about h1, 
+.about h2, 
+.about p {
+    margin: 0 auto 20px;
+    width: 940px;
+    text-align: left;
+}
+
+.about p {
+    text-align: justify;
+    margin-top: 10px;
+}
+
+/*=== RECIPES MODAL ===*/
+
+.recipe img {
+    cursor: pointer;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal {
+    position: relative;
+    width: 660px;
+    height: 413px;
+    margin: 25vh auto;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.modal img {
+    width: 600px;
+    height: 200px;
+    margin: 30px 30px 0 30px;
+    border-radius: 15px;
+}
+
+.modal h2 {
+    font-weight: normal;
+    text-align: center;
+    margin: 20px auto 0;
+    font-size: 24px;
+    color: var(--color-main);
+}
+
+.modal p {
+    text-align: center;
+    margin: 5px auto 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--color-gray);
+}
+
+.close-modal {
+    display: block;
+    margin-top: 60px;
+    text-align: center;
+}
+
+span {
+    cursor: pointer;
+}
+
+/*=== RECIPES MODAL ACTIVE ===*/
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*=== VIEW RECIPE ===*/
+
+.recipe-image {
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.recipe-image img {
+    width: 940px;
+    height: 280px;
+    border-radius: 15px;
+}
+
+.recipe-image h1 {
+    margin: 50px 0 4px;
+    font-size: 36px;
+}
+
+.recipe-image p {
+    margin: 0 0 50px;
+    font-size: 20px;
+    color: var(--color-gray);
+}
+
+.recipe-content {
+    color: var(--color-gray);
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.recipe-content h2 {
+    margin-top: 39px;
+    color: var(--color-main);
+}

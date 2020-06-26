@@ -1,0 +1,31 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Recipes</title>
+{%endblock%}
+
+{%block content%}
+<section>
+    <div class="recipe-list">
+        
+       {%for item in items%}
+            <div class="recipe" id="{{loop.index0}}">
+                <img src="{{item.image}}" alt="Imagem de {{item.title}}">
+                <h3>{{item.title}}</h3>
+                <p>{{item.author}}</p>
+            </div>
+        {%endfor%}
+
+        {%for item in items%}
+            <div class="recipe" id="{{loop.index0}}">
+                <img src="{{item.image}}" alt="Imagem de {{item.title}}">
+                <h3>{{item.title}}</h3>
+                <p>{{item.author}}</p>
+            </div>
+        {%endfor%}
+
+    </div>
+</section>
+
+<script src="/script.js"></script>
+{%endblock%}
