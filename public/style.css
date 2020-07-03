@@ -21,14 +21,18 @@ body {
 }
 
 header {
+    width: 100%;
+}
+
+header div {
     display: flex;
     align-items: center;
     text-align: left;
-    margin: 36px auto 0;
+    margin: 27px auto 27px;
     width: 940px;
 }
 
-header a {
+header div a {
     margin-right: 30px;
     text-decoration: none;
     color: var(--color-alternative);
@@ -249,4 +253,127 @@ span {
 .recipe-content h2 {
     margin-top: 39px;
     color: var(--color-main);
+}
+
+/* ==== ADMIN RECIPES ==== */
+
+header.active {
+    width: 100%;
+    background-color: var(--color-main);
+}
+
+header.active a {
+    display: none;
+    visibility: hidden;
+}
+
+header.active a.logo {
+    display: block;
+    visibility: visible;
+    content: url('/logo-admin.png');
+}
+
+section h1 {
+    margin: 0 0 30px;
+}
+
+.admin-recipe-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.admin-recipe-list .recipe {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.admin-recipe-list .recipe img {
+    height: 80px;
+    width: 172px;
+    border-radius: 8.57px;
+}
+
+.admin-recipe-list .recipe div {
+    margin-left: 20px;
+}
+
+.admin-recipe-list .recipe h3 {
+    font-weight: normal;
+    font-size: 18px;
+    margin: 0;
+    color: var(--color-main);
+}
+
+.admin-recipe-list .recipe div a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color:#6558C3;
+}
+
+/* ==== ADMIN SHOW ==== */
+
+.recipe-header {
+    display: flex;
+    position: relative;
+}
+
+.recipe-header button, 
+.recipe-header button + a,
+.recipe-header h1 + a {
+    position: absolute;
+    background-color: #6558C3;
+    padding: 9px 20px;
+    border: none;
+    text-align: center;
+    right: 0px;
+    border-radius: 4px;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.recipe-header button + a {
+    background-color: #DC4747;
+    right: 150px;
+}
+
+/* ==== EDIT RECIPE ==== */
+
+.recipe-item {
+    margin-top: 30px;
+    color: var(--color-main);
+    font-size: 16px;
+}
+
+.recipe-item div {
+    font-weight: bold;
+}
+
+.recipe-item input, textarea {
+    width: 940px;
+    margin-top: 10px;
+    padding: 15px 20px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+.recipe-item textarea {
+    height: 257px;
+    font-size: 16px;
+    line-height: 24px;
+    resize: none;
+}
+
+.recipe-item div {
+    margin-top: 15px;
+}
+
+.recipe-item a {
+    font-weight: bold;
+    color: #6558C3;
+    text-decoration: none;
 }
