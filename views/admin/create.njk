@@ -7,7 +7,7 @@
 {%block content%}
 <section> 
 
-    <form method="post" action="/admin/recipes">
+    <form method="POST" action="/admin/recipes">
 
         <div class="recipe-header">
             <h1>Criando receita</h1>
@@ -20,15 +20,28 @@
         </div>
 
         <div class="recipe-item">
+            <div>Título da receita</div>
+            <input type="text" name="title" placeholder="Escreva o nome da receita">
+        </div>
+
+        <div class="recipe-item">
             <div>Ingredientes</div>
-            <input type="text" name="ingredients">
-            <div><a href="#">Adicionar novo ingrediente</a></div>
+            <div class="input-box-ingredients">
+                <input type="text" name="ingredient-1">
+            </div>
+            <div>
+                <button id="add-ingredient" type="button" class="add-input">Adicionar novo ingrediente</button>
+            </div>
         </div>
 
         <div class="recipe-item">
             <div>Modo de preparo</div>
-            <input type="text" name="preparation">
-            <div><a href="#">Adicionar novo passo</a></div>
+            <div class="input-box-steps">
+                <input type="text" name="step-1">
+            </div>
+            <div>
+                <button id="add-step" type="button" class="add-input">Adicionar novo passo</button>
+            </div>
         </div>
 
         <div class="recipe-item">

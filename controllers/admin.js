@@ -1,4 +1,5 @@
-const data = require('../data')
+const fs = require('fs')
+const data = require('../data.json')
 
 
 exports.index = function(req, res) {
@@ -18,9 +19,13 @@ exports.post = function(req, res) {
         }
     }
 
-    console.log(req.body)
+    data.recipes.push(req.body)
 
-    return res.send('Ok')    // ('admin/recipes', {items: data})
+    fs.writeFile('data.json', JSON.stringify(data, null, 2), function(err) {
+        if (err) return res.send('File writing error!')
+
+        return res.redirect('admin/recipes')
+    })
 }
 
 exports.show = function(req, res) {
