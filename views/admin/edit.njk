@@ -7,33 +7,64 @@
 {%block content%}
 <section> 
 
-    <div class="recipe-header">
-        <h1>Editando receita</h1>
-        <button type="submit">Salvar receita</button>
-        <a href="#">Deletar</a>
-    </div>
+    <form method="POST" action="/admin/recipes/{{id}}?_method=PUT">
+        <div class="recipe-header">
+            <h1>Editando receita</h1>
+            <button type="submit">Salvar receita</button>
+            <button type="submit" formaction="/admin/recipes/{{id}}?_method=DELETE">Deletar</button>
+        </div>
 
-    <div class="recipe-item">
-        <div>Imagem da receita</div>
-        <input type="url" name="image">
-    </div>
+        <div class="recipe-item">
+            <div>Imagem da receita</div>
+            <input type="url" name="image" placeholder="http://" value="{{item.image}}">
+        </div>
 
-    <div class="recipe-item">
-        <div>Ingredientes</div>
-        <input type="text" name="ingredients">
-        <div><a href="#">Adicionar novo ingrediente</a></div>
-    </div>
+        <div class="recipe-item">
+            <div>Título da receita</div>
+            <input type="text" name="title" placeholder="Escreva o nome da receita" value="{{item.title}}">
+        </div>
 
-    <div class="recipe-item">
-        <div>Modo de preparo</div>
-        <input type="text" name="preparation">
-        <div><a href="#">Adicionar novo passo</a></div>
-    </div>
+        <div class="recipe-item">
+            <div>Autor</div>
+            <input type="text" name="author" placeholder="Escreva o nome do autor da receita" value="{{item.author}}">
+        </div>
 
-    <div class="recipe-item">
-        <div>Informações adicionais</div>
-        <textarea name="information" cols="30" rows="10"></textarea>
-    </div>
+        <div class="recipe-item">
+            <div>Ingredientes</div>
+            <div class="input-box-ingredients">
+                {% for input in item.ingredients %}
+                    <input type="text" name="ingredients[]" value="{{input}}" placeholder="Insira um ingrediente">
+                {% endfor %}
+            </div>
+            <div>
+                <button id="add-ingredient" type="button" class="add-input">Adicionar novo ingrediente</button>
+            </div>
+        </div>
+
+        <div class="recipe-item">
+            <div>Modo de preparo</div>
+            <div class="input-box-steps">
+                {% for input in item.preparation %}
+                    <input type="text" name="preparation[]" value="{{input}}" placeholder="Insira um passo">
+                {% endfor %} 
+            </div>
+            <div>
+                <button id="add-step" type="button" class="add-input">Adicionar novo passo</button>
+            </div>
+        </div>
+
+        <div class="recipe-item">
+            <div>Informações adicionais</div>
+            <textarea name="information" cols="30" rows="10">{{item.information}}</textarea>
+        </div>
+
+        <input type="hidden" name="index" value="{{id}}">
+
+    </form>
 
 </section>
 {%endblock%}
+
+{% block script %}
+<script src="/create-edit.js"></script>
+{% endblock script %}

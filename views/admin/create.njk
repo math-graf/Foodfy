@@ -25,9 +25,14 @@
         </div>
 
         <div class="recipe-item">
+            <div>Autor</div>
+            <input type="text" name="author" placeholder="Escreva o nome do autor da receita">
+        </div>
+
+        <div class="recipe-item">
             <div>Ingredientes</div>
             <div class="input-box-ingredients">
-                <input type="text" name="ingredient-1">
+                <input type="text" name="ingredients[]" value="" placeholder="Insira um ingrediente">
             </div>
             <div>
                 <button id="add-ingredient" type="button" class="add-input">Adicionar novo ingrediente</button>
@@ -37,7 +42,7 @@
         <div class="recipe-item">
             <div>Modo de preparo</div>
             <div class="input-box-steps">
-                <input type="text" name="step-1">
+                <input type="text" name="preparation[]" value="" placeholder="Insira um passo">
             </div>
             <div>
                 <button id="add-step" type="button" class="add-input">Adicionar novo passo</button>
@@ -53,3 +58,7 @@
 
 </section>
 {%endblock%}
+
+{% block script %}
+<script src="/create-edit.js"></script>
+{% endblock script %}

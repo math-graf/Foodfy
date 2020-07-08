@@ -18,8 +18,8 @@ routes.get("/admin/recipes/:id", recipesAdmin.show)
 routes.get("/admin/recipes/:id/edit", recipesAdmin.edit)
 
 routes.post("/admin/recipes", recipesAdmin.post)
-routes.put("/admin/recipes", recipesAdmin.put)
-routes.delete("/admin/recipes", recipesAdmin.delete)
+routes.put("/admin/recipes/:id", recipesAdmin.put)
+routes.delete("/admin/recipes/:id", recipesAdmin.delete)
 
 
 module.exports = routes

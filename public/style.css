@@ -255,6 +255,21 @@ span {
     color: var(--color-main);
 }
 
+.title {
+    display: flex;
+}
+
+.title span {
+    margin-top: 44px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.content-items.active {
+    display: none;
+    visibility: hidden;
+}
+
 /* ==== ADMIN RECIPES ==== */
 
 header.active {
@@ -320,7 +335,7 @@ section h1 {
 }
 
 .recipe-header button, 
-.recipe-header button + a,
+.recipe-header button + button,
 .recipe-header h1 + a {
     position: absolute;
     background-color: #6558C3;
@@ -330,11 +345,14 @@ section h1 {
     right: 0px;
     border-radius: 4px;
     color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
     text-decoration: none;
     cursor: pointer;
+    outline: none;
 }
 
-.recipe-header button + a {
+.recipe-header button + button {
     background-color: #DC4747;
     right: 150px;
 }
@@ -380,5 +398,5 @@ section h1 {
     color: #6558C3;
     text-decoration: none;
     cursor: pointer;
-    outline: none
+    outline: none;
 }
