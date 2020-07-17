@@ -1,0 +1,73 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Editar Receita</title>
+{%endblock%}
+
+{%block content%}
+<section> 
+
+    <form method="POST" action="/admin/recipes/{{recipe.id}}?_method=PUT">
+        <div class="recipe-header">
+            <h1>Editando receita</h1>
+            <span>
+                <button type="submit" formaction="/admin/recipes/{{recipe.id}}?_method=DELETE">Deletar</button>
+                <button type="submit">Salvar receita</button>
+            </span>
+        </div>
+
+        <div class="recipe-item">
+            <div>Imagem da receita</div>
+            <input type="url" name="image" placeholder="http://" value="{{recipe.image}}">
+        </div>
+
+        <div class="recipe-item">
+            <div>Título da receita</div>
+            <input type="text" name="title" placeholder="Escreva o nome da receita" value="{{recipe.title}}">
+        </div>
+
+        <div class="recipe-item">
+            <div>Autor</div>
+            <input type="text" name="author" placeholder="Escreva o nome do autor da receita" value="{{recipe.name}}">
+        </div>
+
+        <div class="recipe-item">
+            <div>Ingredientes</div>
+            <div class="input-box-ingredients">
+                {% for input in recipe.ingredients %}
+                    <input type="text" name="ingredients[]" value="{{input}}" placeholder="Insira um ingrediente">
+                {% endfor %}
+            </div>
+            <div>
+                <button id="add-ingredient" type="button" class="add-input">Adicionar novo ingrediente</button>
+            </div>
+        </div>
+
+        <div class="recipe-item">
+            <div>Modo de preparo</div>
+            <div class="input-box-steps">
+                {% for input in recipe.preparation %}
+                    <input type="text" name="preparation[]" value="{{input}}" placeholder="Insira um passo">
+                {% endfor %} 
+            </div>
+            <div>
+                <button id="add-step" type="button" class="add-input">Adicionar novo passo</button>
+            </div>
+        </div>
+
+        <div class="recipe-item">
+            <div>Informações adicionais</div>
+            <textarea name="information" cols="30" rows="10">{{recipe.information}}</textarea>
+        </div>
+
+        <input type="hidden" name="id" value="{{recipe.id}}">
+
+    </form>
+
+</section>
+{%endblock%}
+
+{% block script %}
+<script src="/create-edit.js"></script>
+<script src="/deletion-confirmation.js"></script>
+{% endblock script %}

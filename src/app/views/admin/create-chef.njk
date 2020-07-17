@@ -1,0 +1,36 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Cadastrar Chef</title>
+{%endblock%}
+
+{%block content%}
+<section> 
+
+    <form method="POST" action="/admin/chefs">
+
+        <div class="recipe-header">
+            <h1>Cadastrando Chef</h1>
+            <span>    
+                <button type="submit">Cadastrar</button>
+            </span>    
+        </div>
+
+        <div class="recipe-item">
+            <div>Nome</div>
+            <input type="text" name="name" placeholder="Escreva o nome do chef">
+        </div>
+
+        <div class="recipe-item">
+            <div>Avatar</div>
+            <input type="url" name="avatar_url" placeholder="http://">
+        </div>
+
+    </form>
+
+</section>
+{%endblock%}
+
+{% block script %}
+<script src="/create-edit.js"></script>
+{% endblock script %}

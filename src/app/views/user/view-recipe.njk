@@ -1,0 +1,54 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>View-Recipe</title>
+{%endblock%}
+
+{%block content%}
+<section>
+    
+    <div class="recipe-image">
+        <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}"> 
+        <h1>{{recipe.title}}</h1>
+        <p>{{recipe.name}}</p>
+    </div>
+    
+    <div class="recipe-content">
+        <div class="title">
+            <h2>Ingredientes</h2><span id="ingredients">Esconder</span>
+        </div>
+        <div class="content-items ingredients">
+            <ul>
+                {%for line in recipe.ingredients%}
+                    <li>{{line}}</li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+
+    <div class="recipe-content">
+        <div class="title">
+            <h2>Modo de preparo</h2><span id="preparation">Esconder</span>
+        </div>
+        <div class="content-items preparation">
+            {%for line in recipe.preparation%}
+                <p>{{line}}</p>
+            {%endfor%}
+        </div>
+    </div>
+
+    <div class="recipe-content">
+        <div class="title">
+            <h2>Informações adicionais</h2><span id="information">Esconder</span>
+        </div>
+        <div class="content-items information">
+            <p>{{recipe.information}}</p>
+        </div>
+    </div>
+
+</section>
+{%endblock%}
+
+{% block script %}
+<script src="/hide-sections.js"></script>
+{% endblock script %}
