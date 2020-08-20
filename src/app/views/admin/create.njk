@@ -7,7 +7,7 @@
 {%block content%}
 <section> 
 
-    <form method="POST" action="/admin/recipes">
+    <form method="POST" action="/admin/recipes" enctype="multipart/form-data">
 
         <div class="recipe-header">
             <h1>Criando receita</h1>
@@ -17,8 +17,13 @@
         </div>
 
         <div class="recipe-item">
-            <div>Imagem da receita</div>
-            <input type="url" name="image" placeholder="http://">
+            <div>Imagens da receita</div>
+            <div id="photos-container">
+                <div class="photo add-photo">
+                    <span class="material-icons add-button">add</span>
+                    <input id="photos-input" type="file" name="photos" multiple accept="image/*" onchange="uploadPhotos.handleInputFiles(event)">
+                </div>
+            </div>
         </div>
 
         <div class="recipe-item">

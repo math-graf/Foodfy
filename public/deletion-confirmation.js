@@ -5,7 +5,7 @@ formDelete.addEventListener('click', function(event) {
 
     if(!confirmation) {
         event.preventDefault()
-    } else if (totalRecipes.value != 0) {
+    } else if (totalRecipes && totalRecipes.value != 0) {
         window.alert('Chef não pode ser deletado com receitas cadastradas.')
         event.preventDefault()
     }

@@ -9,16 +9,16 @@
 
     <div class="chef">
         <div class="chef-header">
-            <h3>Chef: {{chef_information.name}}</h3>
-            <a href="/admin/chefs/{{chef_information.chefid}}/edit">Editar Chef</a>
+            <h3>Chef: {{chef.name}}</h3>
+            <a href="/admin/chefs/{{chef.id}}/edit">Editar Chef</a>
         </div>
         <div class="chef-profile">
-            <div class="avatar" style="background: url('{{chef_information.avatar_url}}') no-repeat center center / cover"></div>
+            <div class="avatar" style="background: url('{{chef.path}}') no-repeat center center / cover"></div>
             <h1>{{chef.name}}</h1>
             <p> 
-                {% if chef.length > 1 %}
-                {{chef.length}} receitas cadastradas
-                {% elif chef_information.chef_id %}
+                {% if chef_recipes.length > 1 %}
+                {{chef_recipes.length}} receitas cadastradas
+                {% elif chef.id %}
                 1 receita cadastrada
                 {% else %}
                 Nenhuma receita cadastrada
@@ -31,10 +31,10 @@
 
     <div class="admin-recipe-list">
         
-    {% if chef_information.chef_id %}
-       {%for recipe in chef%}
+    {% if chef.id %}
+       {%for recipe in chef_recipes%}
             <div class="recipe" id="{{recipe.recipe_id}}">
-                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+                <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
                 <div>
                     <h3>{{recipe.title}}</h3>
                     <p>{{recipe.author}}</p>

@@ -57,3 +57,18 @@ const pagination = document.querySelector('.pagination')
 if (pagination) {
     createPagination(pagination)
 }
+
+function selectPhoto(photo) {
+    const mainPhoto = document.querySelector('.selected-photo')
+    const selectedPhoto = photo.children[0]
+    const allPhotos = document.querySelectorAll('.photo-button')
+
+    for (item of allPhotos) {
+        if (item.classList.contains('selected')) {
+            item.classList.remove('selected')
+        }
+    }
+
+    photo.classList.add('selected')
+    mainPhoto.src = `${selectedPhoto.src}`
+}

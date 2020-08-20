@@ -8,7 +8,19 @@
 <section>
     
     <div class="recipe-image">
-        <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}"> 
+        <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}"> 
+        <div class="recipe-photos">
+            
+            {% for photo in recipePhotos %}
+                    <div 
+                        class="photo-button"
+                        onclick="selectPhoto(this)"
+                        >
+                            <img src="{{photo.path}}" alt="Imagem de {{recipe.title}}">
+                    </div>
+            {% endfor %}
+
+        </div>
         <h1>{{recipe.title}}</h1>
         <p>{{recipe.name}}</p>
     </div>

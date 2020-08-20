@@ -9,10 +9,10 @@
     <div class="recipe-list">
         
        {%for recipe in recipes%}
-            <div class="recipe" id="{{recipe.id}}">
-                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+            <div class="recipe" id="{{recipe.recipe_id}}">
+                <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
                 <h3>{{recipe.title}}</h3>
-                <p>{{recipe.name}}</p>
+                <p>{{recipe.author}}</p>
             </div>
         {%endfor%}
 

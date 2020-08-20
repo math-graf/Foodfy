@@ -12,12 +12,12 @@
     <div class="admin-recipe-list">
         
        {%for recipe in recipes%}
-            <div class="recipe" id="{{recipe.id}}">
-                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+            <div class="recipe" id="{{recipe.recipe_id}}">
+                <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
                 <div>
                     <h3>{{recipe.title}}</h3>
                     <p>{{recipe.author}}</p>
-                    <a href="/admin/recipes/{{recipe.id}}">Vizualizar</a>
+                    <a href="/admin/recipes/{{recipe.recipe_id}}">Vizualizar</a>
                 </div>
             </div>
         {%endfor%}

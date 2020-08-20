@@ -7,7 +7,7 @@
 {%block content%}
 <section> 
 
-    <form method="POST" action="/admin/chefs">
+    <form method="POST" action="/admin/chefs" enctype="multipart/form-data">
 
         <div class="recipe-header">
             <h1>Cadastrando Chef</h1>
@@ -23,7 +23,10 @@
 
         <div class="recipe-item">
             <div>Avatar</div>
-            <input type="url" name="avatar_url" placeholder="http://">
+            <div class="input-container">
+                <input id="input-chef-avatar" type="file" name="photos" accept="image/*">
+                <p id="select-chef-avatar-button">Selecionar</p>
+            </div>
         </div>
 
     </form>

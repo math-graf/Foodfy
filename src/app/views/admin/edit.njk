@@ -7,18 +7,33 @@
 {%block content%}
 <section> 
 
-    <form method="POST" action="/admin/recipes/{{recipe.id}}?_method=PUT">
+    <form method="POST" action="/admin/recipes/{{recipe.id}}?_method=PUT" enctype="multipart/form-data">
         <div class="recipe-header">
             <h1>Editando receita</h1>
             <span>
-                <button type="submit" formaction="/admin/recipes/{{recipe.id}}?_method=DELETE">Deletar</button>
+                <button id="form-delete" type="submit" formaction="/admin/recipes/{{recipe.id}}?_method=DELETE">Deletar</button>
                 <button type="submit">Salvar receita</button>
             </span>
         </div>
 
         <div class="recipe-item">
-            <div>Imagem da receita</div>
-            <input type="url" name="image" placeholder="http://" value="{{recipe.image}}">
+            <div>Imagens da receita</div>
+            <div id="photos-container">
+                
+                {% for file in files %}
+                    <div id="{{file.file_id}}" class="photo" onclick="uploadPhotos.removeOldPhoto(event)">
+                        <img src="{{file.path}}" alt="{{file.title}}">
+                        <span class="material-icons">delete</span>
+                    </div>
+                {% endfor %}
+
+                <div class="photo add-photo">
+                    <span class="material-icons add-button">add</span>
+                    <input id="photos-input" type="file" name="photos" multiple accept="image/*" onchange="uploadPhotos.handleInputFiles(event)">
+                </div>
+                
+            </div>
+                <input type="hidden" name="removed_files">
         </div>
 
         <div class="recipe-item">

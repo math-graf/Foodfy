@@ -1,20 +1,20 @@
 const Admin = require('../models/Admin')
+const File = require('../models/File')
 
 module.exports = {
     
     // ====== RECIPES ========
     
-    index(req, res) {
-        Admin.selectAllRecipes(function(recipes) {
-            if (!recipes) return res.render('Receitas não encontradas!')
+    async index(req, res) {
+        const results = await Admin.selectAllRecipes()
+        const recipes = results.rows
 
-            return res.render('admin/recipes', { recipes })
-        })
+        return res.render('admin/recipes', { recipes })
     },
     create(req, res) {
         return res.render('admin/create')
     }, 
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body)
     
         for (key of keys) {
@@ -22,80 +22,113 @@ module.exports = {
                 return res.send('Por favor, preencha todos os campos.')
             }
         }
-        Admin.createRecipe(req.body, function(recipe) {
-            return res.redirect(`/admin/recipes/${recipe.id}`)
-        })
-    },
-    show(req, res) {
-        Admin.find(req.params.id, function(recipe) {
-            if (!recipe) return res.send('Receita não encontrada!')
 
-            return res.render('admin/view-recipe', { recipe })
-        })
+        if (req.files.length == 0) return res.send('Please, send at least one image.')
+
+        const results = await Admin.createRecipe(req.body)
+        const recipe = results.rows[0]
+        
+        const filesPromise = req.files.map(file => File.create({...file, recipe_id: recipe.id}))
+        await Promise.all(filesPromise)
+
+        return res.redirect(`/admin/recipes/${recipe.id}`)
     },
-    edit(req, res) {
+    async show(req, res) {
+        const results = await Admin.find(req.params.id)
+        const recipe = results.rows[0]
+        const recipePhotos = results.rows
+
+        return res.render('admin/view-recipe', { recipe, recipePhotos })
+    },
+    async edit(req, res) {
         const id = req.params.id
 
-        Admin.editRecipe(id, function(recipe) {
-            if (!recipe) return res.send('Receita não encontrada!')
+        const results = await Admin.editRecipe(id)
+        const recipe = results.rows[0]
+        const files = results.rows
 
-            return res.render('admin/edit', { recipe })
-        })
+        return res.render('admin/edit', { recipe, files })
     },
-    put(req, res) {
+    async put(req, res) {
         const keys = Object.keys(req.body)
     
         for (key of keys) {
-            if (req.body[key] == '' && key != 'information') {
+            if (req.body[key] == '' && key != 'information' && key != 'removed_files') {
                 return res.send('Por favor, preencha todos os campos.')
             }
         }
-        Admin.updateRecipe(req.body, function() {
-            return res.redirect(`/admin/recipes/${req.body.id}`)
-        })   
-    },
-    delete(req, res) {
-        const id = req.body.id        
 
-        Admin.deleteRecipe(id, function() {
-            return res.redirect('/admin/recipes')
-        })
+        if (req.files.length != 0) {
+            const newFilesPromise = req.files.map(file => File.create({...file, recipe_id: req.body.id}))
+
+            await Promise.all(newFilesPromise)
+        }
+
+        if (req.body.removed_files) {
+            const removedFiles = req.body.removed_files.split(',')
+            const lastIndex = removedFiles.length - 1
+            removedFiles.splice(lastIndex, 1)
+
+            const removedFilesPromise = removedFiles.map(id => File.delete(id))
+
+            await Promise.all(removedFilesPromise)
+        }
+
+        await Admin.updateRecipe(req.body)
+
+        return res.redirect(`/admin/recipes/${req.body.id}`)  
+    },
+    async delete(req, res) {
+        const id = req.params.id
+        await Admin.deleteRecipe(id)
+
+        return res.redirect('/admin/recipes')
     },
 
     // ====== CHEFS ========
 
-    chefs(req, res) { 
-        Admin.selectAllChefs(function(chefs) {
-            if (!chefs) return res.send('Chefs não encontrados!')
+    async chefs(req, res) { 
+        const results = await Admin.selectAllChefs()
+        const chefs = results.rows
 
-            return res.render('admin/chefs', { chefs })
-        })
+        return res.render('admin/chefs', { chefs })
     },
     createChef(req, res) {
         return res.render('admin/create-chef')
     },
-    postChef(req, res) {
-        Admin.createChef(req.body, function(chef) {
-            if(!chef) return res.send('Chef não encontrado!')
+    async postChef(req, res) {
+        const keys = Object.keys(req.body)
+    
+        for (key of keys) {
+            if (req.body[key] == '') {
+                return res.send('Por favor, preencha todos os campos.')
+            }
+        }
 
-            return res.redirect(`/admin/chefs/${chef.id}`)
-        })
-    },
-    showChef(req, res) {
-        Admin.findChef(req.params.id, function(chef) {
-            if (!chef) return res.send('Chef não encontrado!')
+        if (req.files.length == 0) return res.send('Please, send at least one image.')
 
-            return res.render('admin/view-chef', { chef, chef_information: chef[0] })
-        })
-    },
-    editChef(req, res) {
-        Admin.inputChef(req.params.id, function(chef) {
-            if (!chef) return res.send('Chef não encontrado!')
+        const fileResults = await File.createChef(req.files[0].filename)
+        console.log(fileResults)
 
-            return res.render(`admin/edit-chef`, {chef})
-        })
+        const results = await Admin.createChef({...req.body, file_id: fileResults.rows[0].id})
+        const chef = results.rows[0]
+
+        return res.redirect(`/admin/chefs/${chef.id}`)
     },
-    putChef(req, res) {
+    async showChef(req, res) {
+        const results = await Admin.findChef(req.params.id)
+        const chef = results.rows[0]
+        const chef_recipes = results.rows
+        
+        return res.render('admin/view-chef', { chef, chef_recipes })
+    },
+    async editChef(req, res) {
+        const results = await Admin.inputChef(req.params.id)
+        const chef = results.rows[0]
+
+        return res.render(`admin/edit-chef`, {chef})
+    },
+    async putChef(req, res) {
         const keys = Object.keys(req.body)
     
         for (key of keys) {
@@ -103,14 +136,12 @@ module.exports = {
                 return res.send('Por favor, preencha todos os campos.')
             }
         }
-        console.log(req.body)
-        Admin.updateChef(req.body, function() {
-            return res.redirect(`/admin/chefs/${req.body.id}`)
-        })
+        await Admin.updateChef(req.body)
+
+        return res.redirect(`/admin/chefs/${req.body.id}`)
     },
-    deleteChef(req, res) {
-        Admin.removeChef(req.params.id, function() {
-            return res.redirect('/admin/chefs')
-        })
+    async deleteChef(req, res) {
+        await Admin.removeChef(req.params.id)
+        return res.redirect('/admin/chefs')
     }
 }
