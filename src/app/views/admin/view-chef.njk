@@ -18,7 +18,7 @@
             <p> 
                 {% if chef_recipes.length > 1 %}
                 {{chef_recipes.length}} receitas cadastradas
-                {% elif chef.id %}
+                {% elif chef.id and chef_recipes.length == 1 %}
                 1 receita cadastrada
                 {% else %}
                 Nenhuma receita cadastrada
@@ -31,13 +31,12 @@
 
     <div class="admin-recipe-list">
         
-    {% if chef.id %}
+    {% if chef.name and chef_recipes.length >= 1 %}
        {%for recipe in chef_recipes%}
             <div class="recipe" id="{{recipe.recipe_id}}">
                 <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
                 <div>
                     <h3>{{recipe.title}}</h3>
-                    <p>{{recipe.author}}</p>
                     <a href="/admin/recipes/{{recipe.recipe_id}}">Vizualizar</a>
                 </div>
             </div>

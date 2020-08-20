@@ -28,7 +28,7 @@ module.exports = {
     createChef(filename) {
         const values = [
             filename,
-            `images/${filename}`
+            `/images/${filename}`
         ]
 
         return db.query(`
@@ -51,6 +51,24 @@ module.exports = {
             return db.query(`
                 DELETE FROM files WHERE id = $1
             `, [id])
+
+        } catch (err) {
+            console.error(err)
+        }
+    },
+    async deleteChef(id) {
+
+        try {
+            const results = await db.query(`
+                SELECT chefs.id, files.path
+                FROM chefs
+                LEFT JOIN files ON (chefs.file_id = files.id)
+                WHERE chefs.id = $1`, [id])
+            const file = results.rows[0]
+    
+            fs.unlinkSync('public' + file.path) 
+    
+            return
 
         } catch (err) {
             console.error(err)

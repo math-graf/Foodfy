@@ -90,7 +90,10 @@ module.exports = {
     // ========= CHEFS =========
 
     selectAllChefs() {
-        return db.query(`SELECT * FROM chefs`)
+        return db.query(`
+            SELECT chefs.*, files.path
+            FROM chefs
+            LEFT JOIN files ON (files.id = chefs.file_id)`)
     },
     createChef(data) {
         const query = `INSERT INTO chefs (
@@ -108,13 +111,44 @@ module.exports = {
 
         return db.query(query, values)
     },
-    findChef(id) {
-        return db.query(`SELECT chefs.*, recipes.title, files.path, recipe_files.recipe_id, recipe_files.file_id
-        FROM chefs
-        LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
-        LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
-        LEFT JOIN files ON (files.id = recipe_files.file_id OR files.id = chefs.file_id)
-        WHERE chefs.id = $1`, [id])
+    async findChef(id) {
+
+        const chef = await db.query(`
+            SELECT
+                chefs.id,
+                chefs.name,
+                files.path
+            FROM
+                chefs
+            LEFT JOIN files ON (files.id = chefs.file_id)
+            WHERE chefs.id = $1
+        `, [id])
+
+        const chef_recipes = await db.query(`
+            SELECT
+                DISTINCT ON (recipe_files.recipe_id) recipe_id,
+                chefs.id AS chef_id,
+            recipes.title,
+            files.path
+            FROM
+                chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
+            LEFT JOIN files ON (files.id = recipe_files.file_id)
+            WHERE
+                chefs.id = $1
+            ORDER BY
+                recipe_files.recipe_id
+        `, [id])
+
+        return {chef, chef_recipes}
+
+        // return db.query(`SELECT chefs.*, recipes.title, files.path, recipe_files.recipe_id, recipe_files.file_id
+        // FROM chefs
+        // LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
+        // LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
+        // LEFT JOIN files ON (files.id = recipe_files.file_id OR files.id = chefs.file_id)
+        // WHERE chefs.id = $1`, [id])
     },
     inputChef(id) {
         return db.query(`SELECT *, (SELECT count(*) FROM recipes WHERE recipes.chef_id = chefs.id) AS total_recipes FROM chefs WHERE id = $1`, [id])

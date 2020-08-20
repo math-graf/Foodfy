@@ -117,9 +117,9 @@ module.exports = {
     },
     async showChef(req, res) {
         const results = await Admin.findChef(req.params.id)
-        const chef = results.rows[0]
-        const chef_recipes = results.rows
-        
+        const chef = results.chef.rows[0]
+        const chef_recipes = results.chef_recipes.rows
+
         return res.render('admin/view-chef', { chef, chef_recipes })
     },
     async editChef(req, res) {
@@ -141,7 +141,9 @@ module.exports = {
         return res.redirect(`/admin/chefs/${req.body.id}`)
     },
     async deleteChef(req, res) {
+        await File.deleteChef(req.params.id)
         await Admin.removeChef(req.params.id)
+
         return res.redirect('/admin/chefs')
     }
 }

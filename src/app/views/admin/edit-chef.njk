@@ -24,7 +24,10 @@
 
         <div class="recipe-item">
             <div>Avatar</div>
-            <input type="url" name="avatar_url" value="{{chef.avatar_url}}" placeholder="http://">
+            <div class="input-container">
+                <input id="input-chef-avatar" type="file" name="photos" accept="image/*">
+                <p id="select-chef-avatar-button">Selecionar</p>
+            </div>
         </div>
 
         <input type="hidden" name="id" value="{{chef.id}}">
