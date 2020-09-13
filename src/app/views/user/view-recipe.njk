@@ -8,16 +8,16 @@
 <section>
     
     <div class="recipe-image">
-        <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}"> 
+        <img class="selected-photo" src="{{recipe.path}}" alt="Imagem de {{recipe.title}}"> 
         <div class="recipe-photos">
             
             {% for photo in recipePhotos %}
-                    <div 
-                        class="photo-button"
-                        onclick="selectPhoto(this)"
-                        >
-                            <img src="{{photo.path}}" alt="Imagem de {{recipe.title}}">
-                    </div>
+                <div 
+                    class="photo-button"
+                    onclick="selectPhoto(this)"
+                    >
+                        <img src="{{photo.path}}" alt="Imagem de {{recipe.title}}">
+                </div>
             {% endfor %}
 
         </div>
@@ -63,4 +63,5 @@
 
 {% block script %}
 <script src="/hide-sections.js"></script>
+<script src="/script.js"></script>
 {% endblock script %}

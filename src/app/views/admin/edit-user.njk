@@ -1,0 +1,45 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Cadastrar Usuário</title>
+{%endblock%}
+
+{%block content%}
+<section> 
+
+    <form method="POST" action="/admin/users?_method=PUT">
+
+        <div class="recipe-header">
+            <h1>Editar Usuário</h1>
+            <span>
+                <button type="submit">Salvar</button>
+                <a href="/admin/users">Deletar</a>
+            </span>   
+        </div>
+
+        <div class="recipe-item">
+            <div>Nome</div>
+            <input type="text" name="name" placeholder="Digite o nome completo" value="{{user.name}}">
+        </div>
+
+        <div class="recipe-item">
+            <div>Email</div>
+            <input type="text" name="email" placeholder="Digite o email" value="{{user.email}}">
+        </div>
+
+        <div class="checkbox-item">
+            <div>
+                <input type="checkbox" name="admin"
+                {% if user.is_admin == true %}
+                checked
+                {% endif %}
+                > Administrador
+            </div>
+        </div>
+
+        <input type="hidden" name="id" value="{{user.id}}">
+
+    </form>
+
+</section>
+{%endblock%}

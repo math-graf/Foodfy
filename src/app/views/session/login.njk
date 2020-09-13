@@ -1,0 +1,34 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Login de Usuário</title>
+{%endblock%}
+
+{%block content%}
+<section class="login"> 
+
+    <form method="POST" action="/admin/login">
+
+        <div class="recipe-header">
+            <h1>Iniciar Sessão</h1>
+        </div>
+
+        <div class="recipe-item">
+            <div>Email</div>
+            <input type="text" name="email" placeholder="Digite seu email">
+        </div>
+        
+        <div class="recipe-item">
+            <div>Senha</div>
+            <input type="password" name="password" placeholder="Digite sua senha">
+        </div>
+
+        <div class="button-options">
+            <a href="/admin/forgot-password">Esqueceu sua senha?</a>
+            <button type="submit">Acessar</button>
+        </div> 
+
+    </form>
+
+</section>
+{%endblock%}

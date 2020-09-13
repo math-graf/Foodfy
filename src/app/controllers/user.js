@@ -41,6 +41,9 @@ module.exports = {
 
         return res.render('user/recipes', { recipes, pagination, filter })
     },
+    chefs(req, res) {
+        return res.render('user/chefs')
+    },
     async show(req, res) {
         const results = await User.find(req.params.id)
         const recipe = results.rows[0]

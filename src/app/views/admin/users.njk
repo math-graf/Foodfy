@@ -1,0 +1,35 @@
+{%extends "layout.njk"%}
+
+{%block header%}
+<title>Gerenciador de Usuários</title>
+{%endblock%}
+
+{%block content%}
+<section>
+
+    <div class="user-header">
+        <h1>Gerenciar Usuários</h1>
+        <span>    
+            <a href="/admin/users/create">Novo</a>
+        </span>
+    </div>
+
+    <div class="user-list">
+        {% for user in users %}
+            <div class="card">
+                <p>{{user.name}}</p>
+                <p>{{user.email}}</p>
+                <div class="options">
+                    <a href="/admin/users/edit/{{user.id}}">Editar</a>
+                    <form method="POST" action="/admin/users?_method=DELETE">
+                        <input type="hidden" name="id" value="{{user.id}}">
+                        <button type="submit">Remover</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<script src="/script.js"></script>
+{%endblock%}

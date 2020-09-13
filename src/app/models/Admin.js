@@ -1,5 +1,5 @@
 const db = require("../../config/db")
-const { date } = require('../../lib/functions')
+const { hash } = require('bcryptjs')
 
 module.exports = {
 
@@ -34,12 +34,11 @@ module.exports = {
             title,
             ingredients,
             preparation,
-            information,
-            created_at
+            information
         ) VALUES ( (
           SELECT id FROM chefs 
           WHERE chefs.name = $1  
-        ) , $2, $3, $4, $5, $6)
+        ) , $2, $3, $4, $5)
             RETURNING id`
 
         const values = [
@@ -48,7 +47,6 @@ module.exports = {
             data.ingredients,
             data.preparation,
             data.information,
-            date(Date.now()).iso
         ]
     
         return db.query(query, values)
@@ -99,14 +97,12 @@ module.exports = {
         const query = `INSERT INTO chefs (
             name,
             file_id,
-            created_at
         ) VALUES ($1, $2, $3)
         RETURNING id`
 
         const values = [
             data.name,
-            data.file_id,
-            date(Date.now()).iso
+            data.file_id
         ]
 
         return db.query(query, values)
@@ -169,5 +165,105 @@ module.exports = {
     },
     removeChef(id) {
         return db.query(`DELETE FROM chefs WHERE id = $1`, [id])
+    },
+
+    // ========= USERS =========
+
+    selectAllUsers() {
+        return db.query('SELECT * FROM users')
+    },
+    async findUser(filter) {
+        const key = Object.keys(filter)[0]
+        const value = filter[key]
+        
+        const results = await db.query(`SELECT * FROM users WHERE ${key} = '${value}'`)
+        
+        return results.rows[0]
+    },
+    async createUser(data) {
+        
+        try {
+            console.log(data)
+            let query = `
+                INSERT INTO users (
+                    name,
+                    email,
+                    password,
+                    ${data.admin ? 'is_admin,' : ''}
+                    reset_token,
+                    reset_token_expires
+                ) VALUES ($1, $2, $3, $4, $5 ${data.admin ? ', $6' : ''})
+                RETURNING id
+            `
+
+            const passwordHash = await hash(data.password, 8)
+    
+            let values = [
+                data.name,
+                data.email,
+                passwordHash,
+                // não esquecer de alterar os 3 abaixo
+                data.reset_token || 1,
+                data.reset_token_expires || 1,
+            ]
+
+            if (data.admin) {
+                values = [
+                    data.name,
+                    data.email,
+                    passwordHash,
+                    data.admin,
+                    // não esquecer de alterar os 3 abaixo
+                    data.reset_token || 1,
+                    data.reset_token_expires || 1,
+                ]
+            }
+    
+            const results = await db.query(query, values)
+    
+            return results.rows[0].id
+            
+        } catch (err) {
+            console.error(err)
+        }
+    },
+    async updateUser(data) {
+        const query = `
+            UPDATE users SET
+                name=$1,
+                email=$2,
+                is_admin=$3
+            WHERE id = $4`
+        
+        const values = [
+            data.name,
+            data.email,
+            data.admin,
+            data.id
+        ]
+
+        await db.query(query, values)
+        return
+    },
+    async updateToken(id, fields) {
+
+        let query = 'UPDATE users SET'
+
+        Object.keys(fields).map((key, index, array) => {
+            if ((index + 1) < array.length) {
+                query = `${query} ${key} = '${fields[key]}', `
+            } else {
+                query = `${query} ${key} = '${fields[key]}'
+                WHERE id = ${id} `
+            }
+        })
+
+        await db.query(query)
+        return
+    },
+    async deleteUser(id) {
+        await db.query(`DELETE FROM users WHERE id = $1`, [id])
+
+        return
     }
 }

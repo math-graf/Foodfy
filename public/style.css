@@ -223,6 +223,23 @@ header.active a.logo {
     font-size: 15px;
 }
 
+.admin.active div {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin.active div form button {
+    border: none;
+    background: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
 /*=== ABOUT ===*/
 
 .about {
@@ -415,7 +432,8 @@ section h1 {
     resize: none;
 }
 
-.recipe-item div {
+.recipe-item div,
+.checkbox-item div {
     margin-top: 15px;
 }
 
@@ -532,41 +550,66 @@ section h1 {
     color: var(--color-gray);
 }
 
-/* ========= CHEFS ============ */
+/* ========= LIST USERS/CHEFS ============ */
 
-.chefs-list {
+.list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
 }
 
-.chefs-list img {
+.list img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
 }
 
-.chefs-list .chef-card {
+.list .card {
     display: grid;
     grid-template-columns: 64px 1fr;
 }
 
-.chefs-list .chef-card div {
+.list .card div {
     margin-left: 20px;
     margin-top: 8.5px;
 }
 
-.chefs-list .chef-card div p {
+.list .card div p {
     margin: 0 0 10px;
     font-size: 18px;
     color: var(--color-main);
 }
 
-.chefs-list .chef-card div a {
+.list .card div a {
     text-decoration: none;
     font-weight: bold;
     font-size: 14px;
     color:#6558C3;
+}
+
+.user-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.user-header button,
+.user-header span a {
+    background-color: #DC4747;
+    padding: 9px 20px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.user-header span button:last-child,
+.user-header span a {
+    background-color: #6558C3;
 }
 
 .input-container {
@@ -597,6 +640,49 @@ section h1 {
     outline: none;
 }
 
+.user-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.user-list .card p {
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.user-list .card p + p {
+    margin: 0;
+    font-size: 14px;
+    color: #777777;
+}
+
+.user-list .card .options {
+    margin-top: 16px;
+}
+
+.user-list .card .options a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #6558C3;
+    text-decoration: none;
+}
+
+.user-list .card .options form {
+    display: inline;
+}
+
+.user-list .card .options form button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    margin-left: 16px;
+    color: #DC4747;
+    cursor: pointer;
+}
+
 /* ====== PAGINATION ======== */
 
 .pagination {
@@ -617,4 +703,42 @@ section h1 {
 .pagination a:hover {
     border-bottom: 1px solid black;
     font-weight: bold;
+}
+
+/* ======= LOGIN ============ */
+
+.login {
+    width: 540px;
+}
+
+.login .recipe-item input {
+    width: 500px;
+}
+
+.login .button-options {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login .button-options a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #969696;
+    text-decoration: none;
+}
+
+.login .button-options button {
+    background-color: #6558C3;
+    padding: 9px 20px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
 }
