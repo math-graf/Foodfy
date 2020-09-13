@@ -10,7 +10,6 @@
     <div class="chef">
         <div class="chef-header">
             <h3>Chef: {{chef.name}}</h3>
-            <a href="/admin/chefs/{{chef.id}}/edit">Editar Chef</a>
         </div>
         <div class="chef-profile">
             <div class="avatar" style="background: url('{{chef.path}}') no-repeat center center / cover"></div>
@@ -34,13 +33,13 @@
     {% if chef.name and chef_recipes.length >= 1 %}
        {%for recipe in chef_recipes%}
             {% if recipe.recipe_id %}
-                    <div class="recipe" id="{{recipe.recipe_id}}">
-                        <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
-                        <div>
-                            <h3>{{recipe.title}}</h3>
-                            <a href="/admin/recipes/{{recipe.recipe_id}}">Vizualizar</a>
-                        </div>
-                    </div>
+            <div class="recipe" id="{{recipe.recipe_id}}">
+                <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
+                <div>
+                    <h3>{{recipe.title}}</h3>
+                    <a href="/recipes/{{recipe.recipe_id}}">Vizualizar</a>
+                </div>
+            </div>
             {% endif %}
         {%endfor%}
     {% endif %}

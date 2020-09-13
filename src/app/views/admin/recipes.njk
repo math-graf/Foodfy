@@ -7,19 +7,26 @@
 {%block content%}
 <section>
 
-    <h1>Gerenciar receitas</h1>
+    <div class="user-header">
+        <h1>Gerenciar receitas</h1>
+        <span>
+            <a href="/admin/recipes/create">Novo</a>
+        </span>
+    </div>
 
     <div class="admin-recipe-list">
         
        {%for recipe in recipes%}
-            <div class="recipe" id="{{recipe.recipe_id}}">
-                <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
-                <div>
-                    <h3>{{recipe.title}}</h3>
-                    <p>{{recipe.author}}</p>
-                    <a href="/admin/recipes/{{recipe.recipe_id}}">Vizualizar</a>
+            {% if recipe.title %}
+                <div class="recipe" id="{{recipe.recipe_id}}">
+                    <img src="{{recipe.path}}" alt="Imagem de {{recipe.title}}">
+                    <div>
+                        <h3>{{recipe.title}}</h3>
+                        <p>{{recipe.author}}</p>
+                        <a href="/admin/recipes/{{recipe.recipe_id}}">Vizualizar</a>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {%endfor%}
 
     </div>

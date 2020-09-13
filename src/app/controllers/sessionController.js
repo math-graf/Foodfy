@@ -11,12 +11,10 @@ module.exports = {
         req.session.userId = req.user.id
 
         const user = await Admin.findUser({ id: req.session.userId })
-        console.log(user)
+
         if (!user.is_admin) {
-            console.log('user is not an admin')
             return res.render('admin/view-user', { user })
         }
-        console.log('user is admin')
         return res.redirect('/admin/users')
     },
     logout(req, res) {

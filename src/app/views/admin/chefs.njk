@@ -7,7 +7,12 @@
 {%block content%}
 <section>
 
-    <h1>Gerenciar Chefs</h1>
+    <div class="user-header">
+        <h1>Gerenciar Chefs</h1>
+        <span>
+            <a href="/admin/chefs/create">Novo</a>
+        </span>
+    </div>
 
     <div class="list">
         {% for chef in chefs %}

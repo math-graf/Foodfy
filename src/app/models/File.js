@@ -43,8 +43,6 @@ module.exports = {
         try {
             const results = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
             const file = results.rows[0]
-            
-            console.log(file)
 
             fs.unlinkSync('public' + file.path)  
         

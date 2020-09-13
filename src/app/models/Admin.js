@@ -14,6 +14,16 @@ module.exports = {
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         `)
     },
+    selectRecipesByUser(id) {
+        return db.query(`
+            SELECT DISTINCT ON (recipe_id) recipe_files.*, recipes.title, chefs.name AS author, files.path
+            FROM recipe_files
+            LEFT JOIN files ON (recipe_files.file_id = files.id)
+            LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
+            AND (recipes.user_id = $1)
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        `, [id])
+    },
     find(id) {
         return db.query(`
             SELECT recipes.*, recipe_files.file_id, files.path
@@ -31,6 +41,7 @@ module.exports = {
     createRecipe(data) {
         const query = `INSERT INTO recipes (
             chef_id,
+            user_id,
             title,
             ingredients,
             preparation,
@@ -38,11 +49,12 @@ module.exports = {
         ) VALUES ( (
           SELECT id FROM chefs 
           WHERE chefs.name = $1  
-        ) , $2, $3, $4, $5)
+        ) , $2, $3, $4, $5, $6)
             RETURNING id`
 
         const values = [
             data.author,
+            data.id,
             data.title,
             data.ingredients,
             data.preparation,
@@ -96,8 +108,8 @@ module.exports = {
     createChef(data) {
         const query = `INSERT INTO chefs (
             name,
-            file_id,
-        ) VALUES ($1, $2, $3)
+            file_id
+        ) VALUES ($1, $2)
         RETURNING id`
 
         const values = [
@@ -138,13 +150,6 @@ module.exports = {
         `, [id])
 
         return {chef, chef_recipes}
-
-        // return db.query(`SELECT chefs.*, recipes.title, files.path, recipe_files.recipe_id, recipe_files.file_id
-        // FROM chefs
-        // LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
-        // LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
-        // LEFT JOIN files ON (files.id = recipe_files.file_id OR files.id = chefs.file_id)
-        // WHERE chefs.id = $1`, [id])
     },
     inputChef(id) {
         return db.query(`SELECT *, (SELECT count(*) FROM recipes WHERE recipes.chef_id = chefs.id) AS total_recipes FROM chefs WHERE id = $1`, [id])
@@ -183,7 +188,6 @@ module.exports = {
     async createUser(data) {
         
         try {
-            console.log(data)
             let query = `
                 INSERT INTO users (
                     name,

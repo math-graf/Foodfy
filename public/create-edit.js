@@ -40,8 +40,6 @@ const uploadPhotos = {
     },
     hasLimit(event) {
         const { files: fileList } = event.target
-        
-        console.log(fileList)
 
         if (fileList.length > 5) {
             alert('Selecione no máximo 5 imagens.')

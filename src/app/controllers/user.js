@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Admin = require('../models/Admin')
 
 module.exports = {
     async index(req, res) {
@@ -41,8 +42,18 @@ module.exports = {
 
         return res.render('user/recipes', { recipes, pagination, filter })
     },
-    chefs(req, res) {
-        return res.render('user/chefs')
+    async chefs(req, res) {
+        const results = await Admin.selectAllChefs()
+        const chefs = results.rows
+
+        return res.render('user/chefs', { chefs })
+    },
+    async showChef(req, res) {
+        const results = await Admin.findChef(req.params.id)
+        const chef = results.chef.rows[0]
+        const chef_recipes = results.chef_recipes.rows
+
+        return res.render('user/view-chef', { chef, chef_recipes })
     },
     async show(req, res) {
         const results = await User.find(req.params.id)

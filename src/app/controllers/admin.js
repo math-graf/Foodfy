@@ -6,9 +6,19 @@ module.exports = {
     // ====== RECIPES ========
     
     async index(req, res) {
-        const results = await Admin.selectAllRecipes()
-        const recipes = results.rows
+        const { userId: id } = req.session
 
+        const user = await Admin.findUser({ id: id })
+
+        let results
+        
+        if (user.is_admin) {
+            results = await Admin.selectAllRecipes()
+        } else {
+            results = await Admin.selectRecipesByUser(id)
+        }
+        const recipes = results.rows
+            
         return res.render('admin/recipes', { recipes })
     },
     create(req, res) {
@@ -24,6 +34,8 @@ module.exports = {
         }
 
         if (req.files.length == 0) return res.send('Please, send at least one image.')
+
+        req.body = {...req.body, id: req.session.userId}
 
         const results = await Admin.createRecipe(req.body)
         const recipe = results.rows[0]
@@ -108,7 +120,6 @@ module.exports = {
         if (req.files.length == 0) return res.send('Please, send at least one image.')
 
         const fileResults = await File.createChef(req.files[0].filename)
-        console.log(fileResults)
 
         const results = await Admin.createChef({...req.body, file_id: fileResults.rows[0].id})
         const chef = results.rows[0]

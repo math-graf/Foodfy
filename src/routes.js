@@ -16,24 +16,25 @@ routes.get('/', recipes.index)
 routes.get('/about', recipes.about)
 routes.get('/recipes', recipes.recipes)
 routes.get('/chefs', recipes.chefs)
+routes.get('/chefs/:id', recipes.showChef)
 routes.get('/recipes/search', recipes.search)
 routes.get('/recipes/:id', recipes.show)
 
 /* ===== ADMIN ===== */
 
-routes.get("/admin/recipes", recipesAdmin.index)
-routes.get("/admin/recipes/create", recipesAdmin.create)
+routes.get("/admin/recipes", onlyUsers, recipesAdmin.index)
+routes.get("/admin/recipes/create", onlyUsers, recipesAdmin.create)
 routes.get("/admin/recipes/:id", recipesAdmin.show)
-routes.get("/admin/recipes/:id/edit", recipesAdmin.edit)
+routes.get("/admin/recipes/:id/edit", onlyUsers, recipesAdmin.edit)
 
 routes.post("/admin/recipes", multer.array('photos', 5), recipesAdmin.post)
 routes.put("/admin/recipes/:id", multer.array('photos', 5), recipesAdmin.put)
 routes.delete("/admin/recipes/:id", recipesAdmin.delete)
 
 routes.get('/admin/chefs', recipesAdmin.chefs)
-routes.get('/admin/chefs/create', recipesAdmin.createChef)
+routes.get('/admin/chefs/create', onlyAdmins, recipesAdmin.createChef)
 routes.get('/admin/chefs/:id', recipesAdmin.showChef)
-routes.get('/admin/chefs/:id/edit', recipesAdmin.editChef)
+routes.get('/admin/chefs/:id/edit', onlyAdmins, recipesAdmin.editChef)
 
 routes.post("/admin/chefs", multer.array('photos', 1), recipesAdmin.postChef)
 routes.put("/admin/chefs/:id", multer.array('photos', 1), recipesAdmin.putChef)
@@ -55,7 +56,7 @@ routes.get('/admin/profile', profileController.index)
 routes.put('/admin/profile', adminValidator.update, profileController.put)
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-routes.get('/admin/users', onlyUsers, adminValidator.show, userController.list)
+routes.get('/admin/users', onlyAdmins, adminValidator.show, userController.list)
 routes.get('/admin/users/create', userController.create)
 routes.get('/admin/users/edit/:id', onlyAdmins, userController.edit)
 routes.post('/admin/users', adminValidator.post, userController.post)
