@@ -54,6 +54,28 @@ module.exports = {
             console.error(err)
         }
     },
+    async deleteAllFiles(id) {
+        try {
+            const results = await db.query(`
+                SELECT recipes.id, recipe_files.file_id, files.path
+                FROM recipes
+                LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
+                LEFT JOIN files ON (files.id = recipe_files.file_id)
+                WHERe recipes.id = $1`, [id])
+            const files = results.rows
+            
+            const filesPromise = files.map(file => {
+                db.query(`DELETE FROM files WHERE id = $1`, [file.file_id])
+                fs.unlinkSync('public' + file.path) 
+            })
+            await Promise.all(filesPromise)
+
+            return
+
+        } catch (err) {
+            console.error(err)
+        }
+    },
     async deleteChef(id) {
 
         try {

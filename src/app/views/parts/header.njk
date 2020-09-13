@@ -1,0 +1,28 @@
+<header>
+    <div class="header">
+        <div class="user active">
+            <a class="logo" href="/"><img src="/logo.png" alt="Foodfy logo"></a>
+            <a href="/about">Sobre</a>
+            <a href="/recipes">Receitas</a>
+            <a href="/chefs">Chefs</a>
+            <a href="/admin/login">Usuários</a>
+        </div>
+        <div class="admin">
+            <a class="logo" href="/"><img src="/logo-admin.png" alt="Foodfy logo"></a>
+            <a href="/admin/recipes">Receitas</a>
+            <a href="/admin/chefs">Chefs</a>
+            <a href="/admin/login">Usuários</a>
+            {% if user or users %}
+            <div>
+                <form action="/admin/logout" method="post">
+                    <button type="submit">Sair</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <form class="search-box" method="GET" action="/recipes/search">
+            <input type="text" name="filter" placeholder="Nome da receita" value="{{filter}}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+</header>

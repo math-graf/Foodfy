@@ -1,0 +1,115 @@
+header {
+    width: 100%;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 27px auto 27px;
+    width: 940px;
+}
+
+header div a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: var(--color-alternative);
+}
+
+header .search-box {
+    display: none;
+    visibility: hidden;
+}
+
+header .search-box.active {
+    display: grid;
+    visibility: visible;
+}
+
+header .search-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+header .search-box input {
+    outline: none;
+    border: none;
+    background-color: var(--color-footer);
+    padding: 9px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+header .search-box button {
+    border: none;
+    background-color: #6558C3;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 9px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+header .logo {
+    width: 96px;
+    margin-right: 122.4px;
+}
+
+header.active {
+    width: 100%;
+    background-color: var(--color-main);
+}
+
+header.active a.logo {
+    display: block;
+    visibility: visible;
+    content: url('/logo-admin.png');
+}
+
+header .user {
+    display: none;
+    visibility: hidden;
+    margin: 0;
+}
+
+header .user.active {
+    display: flex;
+    visibility: visible;
+}
+
+header .admin {
+    display: none;
+    visibility: hidden;
+    margin: 0;
+}
+
+header .admin.active {
+    display: flex;
+    visibility: visible;
+}
+
+header .admin.active a {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+header .admin.active div {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+header .admin.active div form button {
+    border: none;
+    background: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}

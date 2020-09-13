@@ -23,7 +23,7 @@
                     <a href="/admin/users/edit/{{user.id}}">Editar</a>
                     <form method="POST" action="/admin/users?_method=DELETE">
                         <input type="hidden" name="id" value="{{user.id}}">
-                        <button type="submit">Remover</button>
+                        <button type="submit" onclick="confirmDeletion(event)">Remover</button>
                     </form>
                 </div>
             </div>
@@ -31,5 +31,5 @@
     </div>
 </section>
 
-<script src="/script.js"></script>
+<script src="/scripts/script.js"></script>
 {%endblock%}

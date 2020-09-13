@@ -51,7 +51,9 @@ module.exports = {
         try {
             const user = await Admin.findUser({id: req.body.id})
 
-            if (user.is_admin) return res.send('Você não pode deletar uma conta de administrador.')
+            if (user.is_admin) return res.render('admin/users', {
+                error: 'Você não pode deletar uma conta de administrador.'
+            })
 
             await Admin.deleteUser(req.body.id)
 

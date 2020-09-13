@@ -20,66 +20,6 @@ body {
     color: var(--color-main);
 }
 
-header {
-    width: 100%;
-}
-
-header div {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    margin: 27px auto 27px;
-    width: 940px;
-}
-
-header div a {
-    margin-right: 30px;
-    text-decoration: none;
-    color: var(--color-alternative);
-}
-
-header .search-box {
-    display: none;
-    visibility: hidden;
-}
-
-header .search-box.active {
-    display: grid;
-    visibility: visible;
-}
-
-header .search-box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-header .search-box input {
-    outline: none;
-    border: none;
-    background-color: var(--color-footer);
-    padding: 9px 20px;
-    font-size: 16px;
-    border-radius: 4px;
-    font-family: 'Roboto', sans-serif;
-}
-
-header .search-box button {
-    border: none;
-    background-color: #6558C3;
-    color: #FFFFFF;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    padding: 9px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.logo {
-    width: 96px;
-    margin-right: 122.4px;
-}
-
 .main {
     display: flex;
     width: 940px;
@@ -180,64 +120,6 @@ footer p {
     margin: 0;
     padding: 23px;
     color: #999999;
-}
-
-/* === HEADER ==== */
-
-header.active {
-    width: 100%;
-    background-color: var(--color-main);
-}
-
-header.active a.logo {
-    display: block;
-    visibility: visible;
-    content: url('/logo-admin.png');
-}
-
-.user {
-    display: none;
-    visibility: hidden;
-    margin: 0;
-}
-
-.user.active {
-    display: flex;
-    visibility: visible;
-}
-
-.admin {
-    display: none;
-    visibility: hidden;
-    margin: 0;
-}
-
-.admin.active {
-    display: flex;
-    visibility: visible;
-}
-
-.admin.active a {
-    color: #FFFFFF;
-    text-transform: uppercase;
-    font-size: 15px;
-}
-
-.admin.active div {
-    margin: 0;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.admin.active div form button {
-    border: none;
-    background: none;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    text-transform: uppercase;
-    cursor: pointer;
-    outline: none;
 }
 
 /*=== ABOUT ===*/
@@ -679,6 +561,7 @@ section h1 {
     border: none;
     background: none;
     margin-left: 16px;
+    outline: none;
     color: #DC4747;
     cursor: pointer;
 }
@@ -703,42 +586,4 @@ section h1 {
 .pagination a:hover {
     border-bottom: 1px solid black;
     font-weight: bold;
-}
-
-/* ======= LOGIN ============ */
-
-.login {
-    width: 540px;
-}
-
-.login .recipe-item input {
-    width: 500px;
-}
-
-.login .button-options {
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.login .button-options a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    color: #969696;
-    text-decoration: none;
-}
-
-.login .button-options button {
-    background-color: #6558C3;
-    padding: 9px 20px;
-    border: none;
-    text-align: center;
-    border-radius: 4px;
-    color: #FFFFFF;
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    text-decoration: none;
-    cursor: pointer;
-    outline: none;
 }

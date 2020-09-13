@@ -92,6 +92,8 @@ module.exports = {
     },
     async delete(req, res) {
         const id = req.params.id
+
+        await File.deleteAllFiles(id)
         await Admin.deleteRecipe(id)
 
         return res.redirect('/admin/recipes')

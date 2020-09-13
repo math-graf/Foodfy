@@ -72,3 +72,13 @@ function selectPhoto(photo) {
     photo.classList.add('selected')
     mainPhoto.src = `${selectedPhoto.src}`
 }
+
+function confirmDeletion(event) {
+    const confirmation = confirm('Deseja deletar? Esta ação não poderá ser revertida.')
+
+    console.log(event)
+
+    if(!confirmation) {
+        event.preventDefault()
+    }
+}
