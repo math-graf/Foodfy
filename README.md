@@ -7,7 +7,7 @@ O Foodfy é o projeto de conclusão para o curso LaunchBase da Rocketseat.
 
 
 ### Banco de dados
-O banco de dados da aplicação pode ser criado rodando as queries do arquivo **database.sql**.
+O banco de dados da aplicação pode ser criado rodando as queries do arquivo **database.sql**. Foi utilizado o PostgreSQL para o desenvolvimento do projeto.
 
 ### Dependências
 A aplicação possui algumas dependências que podem ser instaladas utilizando o comando **npm install**.
