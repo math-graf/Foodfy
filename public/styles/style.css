@@ -297,7 +297,7 @@ section h1 {
     font-weight: bold;
 }
 
-.recipe-item input, textarea {
+.recipe-item input, textarea, select {
     width: 940px;
     margin-top: 10px;
     padding: 15px 20px;
@@ -305,6 +305,10 @@ section h1 {
     background-color: #FFFFFF;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
+}
+
+.recipe-item select {
+    width: 30%;
 }
 
 .recipe-item textarea {

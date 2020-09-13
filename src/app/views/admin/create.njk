@@ -33,7 +33,12 @@
 
         <div class="recipe-item">
             <div>Autor</div>
-            <input type="text" name="author" placeholder="Escreva o nome do autor da receita">
+            <select name="author">
+                <option value="">Selecione o Chef</option>
+                {% for chef in chefs %}
+                    <option value="{{chef.id}}">{{chef.name}}</option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="recipe-item">

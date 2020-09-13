@@ -21,12 +21,15 @@ module.exports = {
             
         return res.render('admin/recipes', { recipes })
     },
-    create(req, res) {
-        return res.render('admin/create')
+    async create(req, res) {
+        const results = await Admin.selectAllChefs()
+        const chefs = results.rows
+
+        return res.render('admin/create', { chefs })
     }, 
     async post(req, res) {
         const keys = Object.keys(req.body)
-    
+
         for (key of keys) {
             if (req.body[key] == '' && key != 'information') {
                 return res.send('Por favor, preencha todos os campos.')
