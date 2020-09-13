@@ -16,3 +16,8 @@ A aplicação possui algumas dependências que podem ser instaladas utilizando o
 Utilize o comando **node src/server.js** para iniciar o servidor no endereço **localhost:5000**. 
 
 Originalmente o projeto deveria ser desenvolvido utilizando **nodemon** e **browser-sync** mas foi optado por não utilizar. Se o ambiente de desenvolvimento precisar, as dependências podem ser instaladas e a porta para o **nodemailer** deve ser atualizada com a porta de proxy do **browser-sync**.
+
+### Criando um administrador
+Para acessar todas as funções de cadastro e edição de receitas, chefs e usuários você precisa estar logado com uma conta de administrador. Para fins de teste, o aplicativo utiliza o **nodemailer** e o **https://mailtrap.io/** para autenticação dos usuários. Crie uma conta ou faça login em uma existente no mailtrap e copie as informações necessárias para fazer a integração com o nodemailer na pasta **src/lib/mailer**.
+
+Utilize a rota **/admin/users/create** e cadastre um usuário como administrador, marcando a opção no formulário. Você receberá um e-mail pelo **mailtrap** com a senha da conta cadastrada que poderá ser alterada em "Esqueceu sua senha?" na tela de login.
